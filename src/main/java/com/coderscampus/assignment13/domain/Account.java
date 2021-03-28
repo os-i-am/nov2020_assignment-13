@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="accounts")
+@Table(name="account")
 public class Account {
 	private Long accountId;
 	private String accountName;

@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity // Class name = User, DB Table name = user
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 	private Long userId;
 	private String username;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 	<head>
-		<title>Create Account</title>
+		<title>online Bank - create account</title>
 	</head>
 	<body>
 		<h1>Create Your Account</h1>
@@ -20,5 +20,8 @@
 				<input type="submit" value="Create Account" />
 			</div>
 		</form>
+		<hr />
+			<span><a th:href="@{'/users/'}"
+			th:text="back">back</a></span>
 	</body>
 </html>

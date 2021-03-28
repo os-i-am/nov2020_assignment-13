@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="transactions")
+@Table(name="transaction")
 public class Transaction {
 	private Long transactionId;
 	private LocalDateTime transactionDate;
