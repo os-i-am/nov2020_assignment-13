@@ -9,6 +9,12 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Address {
+	@Override
+	public String toString() {
+		return "Address [userId=" + userId + ", user=" + user + ", addressLine1=" + addressLine1 + ", addressLine2="
+				+ addressLine2 + ", city=" + city + ", region=" + region + ", country=" + country + ", zipCode="
+				+ zipCode + "]";
+	}
 	private Long userId;
 	private User user;
 	private String addressLine1;

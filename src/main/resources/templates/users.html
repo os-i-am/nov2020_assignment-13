@@ -18,7 +18,7 @@
 		<div th:each="account : ${user.accounts}">
 			<span>
 				<a th:href="@{'/users/' + ${user.userId} + '/accounts/' + ${account.accountId}}"
-					th:text="'#' + ${account.accountId} + ': ' + ${account.accountName}">DummyAccount</a>
+					th:text="${account.accountName}">DummyAccount</a>
 			</span>
 		</div>
 		

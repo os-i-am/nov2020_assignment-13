@@ -33,6 +33,13 @@
 		<div>
 			Zip Code: <input type="text" th:field="${address.zipCode}" />
 		</div>
+		
+		<!-- putting the accounts on the model // "account" is NOT on the model!-->	
+		<!-- <div th:each="account : ${accounts}">
+			ID: <input type="text" th:field="${accounts.accountId}" />
+			Name: <input type="text" th:field="${accounts.accountName}" />
+		</div> -->
+		
 		<br />
 		<div>
 			<input type="submit" value="Update User Account" />
@@ -48,10 +55,10 @@
 		
 		<br />
 		<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
-		<div th:each="account : ${user.accounts}">
+		<div th:each="account : ${accounts}">
 			<span>
 				<a th:href="@{'/users/' + ${user.userId} + '/accounts/' + ${account.accountId}}"
-					th:text="'#' + ${account.accountId} + ': ' + ${account.accountName}">DummyAccount</a>
+					th:text="${account.accountName}">DummyAccount</a>
 			</span>
 		</div>
 		<div>

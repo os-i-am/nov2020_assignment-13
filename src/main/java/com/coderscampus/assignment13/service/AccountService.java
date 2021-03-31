@@ -1,12 +1,12 @@
 package com.coderscampus.assignment13.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coderscampus.assignment13.domain.Account;
-import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.repository.AccountRepository;
 
 @Service
@@ -17,12 +17,13 @@ public class AccountService {
 	@Autowired
 	private UserService userService;
 
-	public Account saveAccount(Account account, User user) {
-		if (user.getAccounts().contains(account) == false) {
-			user.getAccounts().add(account);
-			account.getUsers().add(user);
-		}
+	public Account saveAccount(Account account) {
 		return accountRepo.save(account);
+	}
+	
+	public List<Account> findAllAccountsByUserId(Long userId) {
+		List<Account> accounts = userService.findById(userId).getAccounts();
+		return accounts;
 	}
 
 
@@ -35,8 +36,9 @@ public class AccountService {
 	public void createAccountByUserId(Long userId) {
 		Account account = new Account();
 		account.getUsers().add(userService.findById(userId));
-		account.setAccountName("new Account");
 		userService.findById(userId).getAccounts().add(account);
+		Integer accountNumber = userService.findById(userId).getAccounts().size();
+		account.setAccountName("Account" + " #" + accountNumber);
 		accountRepo.save(account);
 		
 	}

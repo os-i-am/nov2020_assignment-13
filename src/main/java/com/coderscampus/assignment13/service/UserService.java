@@ -11,20 +11,13 @@ import org.springframework.stereotype.Service;
 import com.coderscampus.assignment13.domain.Account;
 import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.domain.User;
-import com.coderscampus.assignment13.repository.AccountRepository;
-import com.coderscampus.assignment13.repository.AddressRepository;
 import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepo;
-	@Autowired
-	private AccountRepository accountRepo;
-	@Autowired
-	private AddressRepository addressRepo;
-	
+	private UserRepository userRepo;	
 	
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
@@ -55,7 +48,19 @@ public class UserService {
 		return userOpt.orElse(new User());
 	}
 
-	public User saveUser(User user) {
+	public User saveUserDetails(User user, Address address, List<Account> accounts, Long userId) {		
+			address.setUser(user);
+			user.setAddress(address);
+			
+			for (Account account : accounts) {
+				account.getUsers().add(user);
+				user.getAccounts().add(account);
+			}
+		
+		return userRepo.save(user);
+	}
+	
+	public User saveNewUser(User user) {
 		if (user.getUserId() == null) {
 			Account checking = new Account();
 			checking.setAccountName("Checking Account");
@@ -63,18 +68,15 @@ public class UserService {
 			Account savings = new Account();
 			savings.setAccountName("Savings Account");
 			savings.getUsers().add(user);
-			
 			user.getAccounts().add(checking);
 			user.getAccounts().add(savings);
-			accountRepo.save(checking);
-			accountRepo.save(savings);
 			
-			Address address = new Address();
-			address.setUser(user);
-			user.setAddress(address);
-			
-			addressRepo.save(address);
+			Address blankAddress = new Address();
+			blankAddress.setUser(user);
+			blankAddress.setUserId(user.getUserId());
+			user.setAddress(blankAddress);
 		}
+		
 		return userRepo.save(user);
 	}
 
