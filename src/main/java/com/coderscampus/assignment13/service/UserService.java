@@ -52,10 +52,12 @@ public class UserService {
 			address.setUser(user);
 			user.setAddress(address);
 			
-			for (Account account : accounts) {
-				account.getUsers().add(user);
-				user.getAccounts().add(account);
-			}
+			user.setAccounts(accounts);
+			
+//			for (Account account : accounts) {
+//				account.getUsers().add(user);
+//				user.getAccounts().add(account);
+//			}
 		
 		return userRepo.save(user);
 	}
