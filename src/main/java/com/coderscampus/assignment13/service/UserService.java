@@ -2,7 +2,6 @@ package com.coderscampus.assignment13.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +43,12 @@ public class UserService {
 	}
 	
 	public User findById(Long userId) {
-		Optional<User> userOpt = userRepo.findById(userId);
-		return userOpt.orElse(new User());
+		User user = userRepo.findOneUsersWithAccountsAndAddresses(userId);
+		return user;
 	}
 
-	public User saveUserDetails(User user, Address address, List<Account> accounts, Long userId) {		
-			address.setUser(user);
-			user.setAddress(address);
-			
-			user.setAccounts(accounts);
-			
-//			for (Account account : accounts) {
-//				account.getUsers().add(user);
-//				user.getAccounts().add(account);
-//			}
+	public User saveUserDetails(User user, Long userId) {		
+		user.getAddress().setUserId(userId);
 		
 		return userRepo.save(user);
 	}

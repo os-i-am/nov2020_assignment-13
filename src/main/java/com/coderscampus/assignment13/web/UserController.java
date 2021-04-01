@@ -1,7 +1,6 @@
 package com.coderscampus.assignment13.web;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.coderscampus.assignment13.domain.Account;
-import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.service.AccountService;
-import com.coderscampus.assignment13.service.AddressService;
 import com.coderscampus.assignment13.service.UserService;
 
 @Controller
@@ -23,9 +20,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private AddressService addressService;
 	
 	@Autowired
 	private AccountService accountService;
@@ -54,20 +48,21 @@ public class UserController {
 	
 	@GetMapping("/users/{userId}")
 	public String getOneUser (ModelMap model, @PathVariable Long userId) {
+//		User user = userService.findById(userId);
+//		Address address = addressService.findById(userId);
+//		List<Account> accounts = accountService.findAllAccountsByUserId(userId);
 		User user = userService.findById(userId);
-		Address address = addressService.findById(userId);
-		List<Account> accounts = accountService.findAllAccountsByUserId(userId);
 		model.put("user", user);
-		model.put ("address", address);
-		model.put ("accounts", accounts);
+//		model.put ("address", address);
+//		model.put ("accounts", accounts);
 		return "user";
 	}
 	
 	@PostMapping("/users/{userId}")
-	public String postOneUser (User user, Address address, ArrayList<Account> accounts, @PathVariable Long userId) {
+	public String postOneUser (User user, @PathVariable Long userId) {
 //		addressService.saveAddress(address);
 //		accountService.saveAccount(account);
-		userService.saveUserDetails(user, address, accounts, userId);
+		userService.saveUserDetails(user, userId);
 		return "redirect:/users/"+user.getUserId();
 	}
 	

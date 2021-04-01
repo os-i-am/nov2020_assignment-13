@@ -6,6 +6,7 @@
 <body>
 	<h1>User Details</h1>
 	<form action="" method="post">
+
 		<div>
 			Username: <input type="text" th:field="${user.username}" />
 		</div>
@@ -17,28 +18,39 @@
 		</div>
 		<hr /><br />
 		<div>
-			Address Line 1 <input type="text" th:field="${address.addressLine1}" />
+			Address Line 1 <input type="text" th:field="${user.address.addressLine1}" />
 		</div>
 		<div>
-			Address Line 2: <input type="text" th:field="${address.addressLine2}" />
+			Address Line 2: <input type="text" th:field="${user.address.addressLine2}" />
 		</div>
 		<div>
-			City: <input type="text" th:field="${address.city}" />
+			City: <input type="text" th:field="${user.address.city}" />
 		</div><div>
-			Region: <input type="text" th:field="${address.region}" />
+			Region: <input type="text" th:field="${user.address.region}" />
 		</div>
 		<div>
-			Country: <input type="text" th:field="${address.country}" />
+			Country: <input type="text" th:field="${user.address.country}" />
 		</div>
 		<div>
-			Zip Code: <input type="text" th:field="${address.zipCode}" />
+			Zip Code: <input type="text" th:field="${user.address.zipCode}" />
 		</div>
+
 		
-		<!-- putting the accounts on the model // "account" is NOT on the model!-->	
-		<!-- <div th:each="account : ${accounts}">
-			ID: <input type="text" th:field="${accounts.accountId}" />
-			Name: <input type="text" th:field="${accounts.accountName}" />
-		</div> -->
+		<!-- problem with putting the "accounts" on the model // simple text works 
+			 but putting the "accounts" into an (hidden) input breaks the parsing
+			 // a th:each loop doesn't help since the "account" variable is 
+			 "in-line" loccal thing and doesn't make it to the model-->	
+	
+	<!-- doe not work: -->		 
+	<!--	<div th:each="account : ${user.accounts}">
+				<input type="hidden" th:field="${account.accountId}" />
+				<input type="hidden" th:field="${account.accountName}" />
+			</div> -->
+			
+	<!-- does not work either: -->
+	<!--	<div>
+				<input type="hidden" th:field="${user.accounts}">
+			</div> -->
 		
 		<br />
 		<div>
@@ -55,7 +67,7 @@
 		
 		<br />
 		<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
-		<div th:each="account : ${accounts}">
+		<div th:each="account : ${user.accounts}">
 			<span>
 				<a th:href="@{'/users/' + ${user.userId} + '/accounts/' + ${account.accountId}}"
 					th:text="${account.accountName}">DummyAccount</a>
