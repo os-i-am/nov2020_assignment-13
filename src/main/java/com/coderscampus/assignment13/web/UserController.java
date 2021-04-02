@@ -47,20 +47,13 @@ public class UserController {
 
 	@GetMapping("/users/{userId}")
 	public String getOneUser(ModelMap model, @PathVariable Long userId) {
-//		User user = userService.findById(userId);
-//		Address address = addressService.findById(userId);
-//		List<Account> accounts = accountService.findAllAccountsByUserId(userId);
 		User user = userService.findById(userId);
 		model.put("user", user);
-//		model.put ("address", address);
-//		model.put ("accounts", accounts);
 		return "user";
 	}
 
 	@PostMapping("/users/{userId}")
 	public String postOneUser(User user, @PathVariable Long userId) {
-//		addressService.saveAddress(address);
-//		accountService.saveAccount(account);
 		userService.saveUserDetails(user, userId);
 		return "redirect:/users/" + user.getUserId();
 	}

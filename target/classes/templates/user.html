@@ -33,25 +33,7 @@
 		</div>
 		<div>
 			Zip Code: <input type="text" th:field="${user.address.zipCode}" />
-		</div>
-
-		
-		<!-- problem with putting the "accounts" on the model // simple text works 
-			 but putting the "accounts" into an (hidden) input breaks the parsing
-			 // a th:each loop doesn't help since the "account" variable is 
-			 "in-line" loccal thing and doesn't make it to the model-->	
-	
-	<!-- doe not work: -->		 
-	<!--	<div th:each="account, idx : ${user.accounts}">
-				<input type="hidden" th:field="${user.accounts[__${idx}__].accountId}" />
-				<input type="hidden" th:field="${user.accounts[__${idx}__].accountName}" />
-			</div> -->
-			
-	<!-- does not work either: -->
-	<!--	<div>
-				<input type="hidden" th:field="${user.accounts}">
-			</div> -->
-		
+		</div>		
 		<br />
 		<div>
 			<input type="submit" value="Update User Account" />
