@@ -35,5 +35,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("select u from User u"
 			+ " left join fetch u.accounts"
 			+ " left join fetch u.address where u.userId = :userId")
-		User findOneUsersWithAccountsAndAddresses(Long userId);
+	User findOneUsersWithAccountsAndAddresses(Long userId);
 }

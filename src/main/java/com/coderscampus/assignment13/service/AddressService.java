@@ -13,13 +13,11 @@ public class AddressService {
 
 	@Autowired
 	private AddressRepository addressRepo;
-	
-	
+
 	public Address findById(Long userId) {
 		Optional<Address> addressOpt = addressRepo.findById(userId);
 		return addressOpt.orElse(new Address());
 	}
-
 
 	public Address saveAddress(Address address) {
 		return addressRepo.save(address);

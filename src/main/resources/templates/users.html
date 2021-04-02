@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="https://thymeleaf.org">
+
 <head>
-<title>online Bank - overview</title>
+	<title>online Bank - overview</title>
 </head>
+
 <body>
 	<h1>All Users</h1>
 	<div th:each="user : ${users}">
-		<span><a th:href="@{'/users/' + ${user.userId}}"
-			th:text="'ID: ' + ${user.userId}">DummyID</a></span>
-		<br /> 
+		<span><a th:href="@{'/users/' + ${user.userId}}" th:text="'ID: ' + ${user.userId}">DummyID</a></span>
+		<br />
 		<span th:text="${user.username}"></span>
-		<br /> 
+		<br />
 		<span th:text="${user.name}"></span>
-		<br /> 
+		<br />
 		<span th:text="${user.password}"></span>
 
 		<div th:each="account : ${user.accounts}">
@@ -21,12 +22,12 @@
 					th:text="${account.accountName}">DummyAccount</a>
 			</span>
 		</div>
-		
+
 		<hr />
 	</div>
 	<div>
-		<span><a th:href="@{'/register/'}"
-			th:text="register">register</a></span>
+		<span><a th:href="@{'/register/'}" th:text="register">register</a></span>
 	</div>
 </body>
+
 </html>

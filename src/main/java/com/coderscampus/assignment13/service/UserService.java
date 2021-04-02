@@ -14,22 +14,25 @@ import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
-	private UserRepository userRepo;	
-	
+	private UserRepository userRepo;
+
+	@Autowired
+	private AccountService accountService;
+
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
 	}
-	
+
 	public List<User> findByNameAndUsername(String name, String username) {
 		return userRepo.findByNameAndUsername(name, username);
 	}
-	
+
 	public List<User> findByCreatedDateBetween(LocalDate date1, LocalDate date2) {
 		return userRepo.findByCreatedDateBetween(date1, date2);
 	}
-	
+
 	public User findExactlyOneUserByUsername(String username) {
 		List<User> users = userRepo.findExactlyOneUserByUsername(username);
 		if (users.size() > 0)
@@ -37,22 +40,22 @@ public class UserService {
 		else
 			return new User();
 	}
-	
-	public Set<User> findAll () {
+
+	public Set<User> findAll() {
 		return userRepo.findAllUsersWithAccountsAndAddresses();
 	}
-	
+
 	public User findById(Long userId) {
 		User user = userRepo.findOneUsersWithAccountsAndAddresses(userId);
 		return user;
 	}
 
-	public User saveUserDetails(User user, Long userId) {		
+	public User saveUserDetails(User user, Long userId) {
 		user.getAddress().setUserId(userId);
-		
+		user.setAccounts(accountService.findAllAccountsByUserId(userId));
 		return userRepo.save(user);
 	}
-	
+
 	public User saveNewUser(User user) {
 		if (user.getUserId() == null) {
 			Account checking = new Account();
@@ -63,13 +66,13 @@ public class UserService {
 			savings.getUsers().add(user);
 			user.getAccounts().add(checking);
 			user.getAccounts().add(savings);
-			
+
 			Address blankAddress = new Address();
 			blankAddress.setUser(user);
 			blankAddress.setUserId(user.getUserId());
 			user.setAddress(blankAddress);
 		}
-		
+
 		return userRepo.save(user);
 	}
 
